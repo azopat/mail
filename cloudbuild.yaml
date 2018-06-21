@@ -1,6 +1,6 @@
 steps:
 - name: 'ubuntu'
-  args: ['bash', '-c', 'ls']
+  args: ['bash', '-c', 'apt-get', 'install', '-y', 'make']
   dir: 'src/mail'
 - name: 'ubuntu'
   args: ['bash', '-c', 'make', 'compile']
