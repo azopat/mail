@@ -1,0 +1,12 @@
+steps:
+- name: 'ubuntu'
+  args: ['bash', '-c', 'ls']
+  dir: 'src/mail'
+- name: 'ubuntu'
+  args: ['bash', '-c', 'make', 'compile']
+  dir: 'src/mail'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["build", "-t", "gcr.io/lax-gateway/mail:$REVISION_ID", "."]
+  dir: 'src/mail/tmp'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/lax-gateway/mail:$REVISION_ID"]
