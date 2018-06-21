@@ -1,6 +1,6 @@
 steps:
 - name: 'ubuntu'
-  args: ['bash', '-c', 'apt-get update && apt-get install -y make && apt-get install docker &&  make compile']
+  args: ['bash', '-c', 'apt-get update && apt-get install -y make && apt-get install -y docker &&  make compile']
   dir: 'src/mail'
 - name: 'ubuntu'
   args: ['bash', '-c', '/usr/bin/make compile']
