@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mail
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: mail
+    spec:
+      imagePullSecrets:
+      - name: myregistrykey
+      containers:
+      - name: mail
+        image: index.docker.io/${IMAGE}
+        imagePullPolicy: Always
+        env:
+           - name: MYSQL_HOST
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: mysql.host
+           - name: MYSQL_USERNAME
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: mysql.username
+           - name: MYSQL_PASSWORD
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: mysql.password
+           - name: MYSQL_MAIN_DATABASE
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: mysql.main.database
+           - name: SMTP_HOST
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: smtp.host
+           - name: SMTP_PORT
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: smtp.port
+           - name: SMTP_USERNAME
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: smtp.username
+           - name: SMTP_PASSWORD
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: smtp.password
+           - name: NSQ_HOST
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: nsq.host
+           - name: FROM_ADDRESS
+             valueFrom:
+                configMapKeyRef:
+                  name: config-configmap
+                  key: from.address
+        ports:
+        - containerPort: 80
